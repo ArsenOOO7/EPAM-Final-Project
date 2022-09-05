@@ -25,8 +25,6 @@
 2. JDK 16+
 3. MySQL 8.0 / MariaDB
 
-> Для успішної збірки проекту необхідна запущена база даних ([детальніше](src/test/java/com/arsen/epam/internet/shop/db/DBTest.java))
-
 <hr>
 
 ### Завдання фінального проекту
