@@ -6,6 +6,7 @@ import com.arsen.epam.internet.shop.entity.user.status.UserStatus;
 import com.arsen.epam.internet.shop.web.path.WebPath;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ import java.io.IOException;
  *
  * @author Arsen Sydoryk
  */
-//@WebFilter(urlPatterns = {"/product/add", "/product/edit/*", "/product/delete/*", "/category/*", "/admin/*"})
+@WebFilter(urlPatterns = {"/product/add", "/product/edit/*", "/product/delete/*", "/category/*", "/admin/*"})
 public class AdminAccessFilter extends HttpFilter {
 
     private static final Logger log = LogManager.getLogger(AdminAccessFilter.class);
