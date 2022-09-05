@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.arsen.epam.internet.shop.service.validation.form.UserFormValidationTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.03 s - in com.arsen.epam.internet.shop.service.validation.form.UserFormValidationTest

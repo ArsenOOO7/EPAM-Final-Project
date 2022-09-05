@@ -1,0 +1,17 @@
+com\arsen\epam\internet\shop\service\cache\CacheTest.class
+com\arsen\epam\internet\shop\repository\helper\Helper.class
+com\arsen\epam\internet\shop\entity\CartTest.class
+com\arsen\epam\internet\shop\service\validation\form\ProductFormValidationTest.class
+com\arsen\epam\internet\shop\db\DBTest.class
+com\arsen\epam\internet\shop\repository\RepositoryTest.class
+com\arsen\epam\internet\shop\service\validation\id\IdValidationTest.class
+com\arsen\epam\internet\shop\service\validation\form\CategoryFormValidationTest.class
+com\arsen\epam\internet\shop\service\generator\GeneratorTest.class
+com\arsen\epam\internet\shop\entity\UserTest.class
+com\arsen\epam\internet\shop\service\validation\EmailValidationTest.class
+com\arsen\epam\internet\shop\entity\ProductTest.class
+com\arsen\epam\internet\shop\service\validation\PasswordValidationTest.class
+com\arsen\epam\internet\shop\entity\CategoryTest.class
+com\arsen\epam\internet\shop\service\validation\form\UserFormValidationTest.class
+com\arsen\epam\internet\shop\service\validation\form\CartFormValidationTest.class
+com\arsen\epam\internet\shop\service\validation\LanguageTest.class

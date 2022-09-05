@@ -1,0 +1,16 @@
+<c:if test="${empty query}">
+    <c:set var="query" value="" />
+</c:if>
+
+<div class="pages text-center mt-5 mb-4 w-100">
+    <div class="btn-group w-25" role="group">
+        <a href="${pageContext.request.contextPath}${path}?${query}&page=1" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50"><fmt:message key="pages.pagination.first" /></a>
+        <c:if test="${page < pages}">
+            <a href="${pageContext.request.contextPath}${path}?${query}&page=${page + 1}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50"><fmt:message key="pages.pagination.next" /></a>
+        </c:if>
+        <c:if test="${page > 1}">
+            <a href="${pageContext.request.contextPath}${path}?${query}&page=${page - 1}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50"><fmt:message key="pages.pagination.prev" /></a>
+        </c:if>
+        <a href="${pageContext.request.contextPath}${path}?${query}&page=${pages}" role="button" tabindex="-1" style="width: 7rem;" class="btn btn-secondary w-50"><fmt:message key="pages.pagination.last" /></a>
+    </div>
+</div>
