@@ -1,6 +1,6 @@
 package com.arsen.epam.internet.shop.web.controller.product;
 
-import com.arsen.epam.internet.shop.database.DBConnection;
+import com.arsen.epam.internet.shop.database.DBManager;
 import com.arsen.epam.internet.shop.entity.Category;
 import com.arsen.epam.internet.shop.entity.product.Product;
 import com.arsen.epam.internet.shop.entity.product.color.Color;
@@ -72,7 +72,7 @@ public class ProductController extends HttpServlet {
 
         log.trace("Getting and setting number of all pages by this query into RequestScope");
         specification.setSelect("COUNT(*)");
-        req.setAttribute("pages", (int) Math.ceil(DBConnection.getInstance().count(specification)
+        req.setAttribute("pages", (int) Math.ceil(DBManager.getInstance().count(specification)
                 / (double) Data.MAX_ENTITIES_PAGE));
 
         log.debug(LogMessage.CONTROLLER_FINISHED);

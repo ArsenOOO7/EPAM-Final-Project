@@ -1,6 +1,6 @@
 package com.arsen.epam.internet.shop.repository.image;
 
-import com.arsen.epam.internet.shop.database.DBConnection;
+import com.arsen.epam.internet.shop.database.DBManager;
 import com.arsen.epam.internet.shop.database.Query;
 import com.arsen.epam.internet.shop.entity.image.Image;
 import com.arsen.epam.internet.shop.repository.Specification;
@@ -22,7 +22,7 @@ public class ImageRepository implements IImageRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.SAVE_IMAGE, Statement.RETURN_GENERATED_KEYS);
@@ -41,10 +41,10 @@ public class ImageRepository implements IImageRepository{
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -53,7 +53,7 @@ public class ImageRepository implements IImageRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.UPDATE_IMAGE);
@@ -67,10 +67,10 @@ public class ImageRepository implements IImageRepository{
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -79,7 +79,7 @@ public class ImageRepository implements IImageRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(Query.DELETE_IMAGE);
 
             connection.setAutoCommit(false);
@@ -89,10 +89,10 @@ public class ImageRepository implements IImageRepository{
 
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -115,7 +115,7 @@ public class ImageRepository implements IImageRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = specification.getStatement(connection);
 
             connection.setAutoCommit(false);
@@ -129,10 +129,10 @@ public class ImageRepository implements IImageRepository{
             }
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
         return list;

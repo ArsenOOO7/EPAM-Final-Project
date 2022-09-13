@@ -1,6 +1,6 @@
 package com.arsen.epam.internet.shop.web.controller.admin.users;
 
-import com.arsen.epam.internet.shop.database.DBConnection;
+import com.arsen.epam.internet.shop.database.DBManager;
 import com.arsen.epam.internet.shop.entity.user.User;
 import com.arsen.epam.internet.shop.repository.HeadRepository;
 import com.arsen.epam.internet.shop.repository.user.specification.UserAllSpecification;
@@ -66,7 +66,7 @@ public class AdminUsersController extends HttpServlet {
 
         log.trace("Getting and setting number of all pages by this query into RequestScope");
         specification.setCountAll();
-        req.setAttribute("pages", (int) Math.ceil(DBConnection.getInstance().count(specification)
+        req.setAttribute("pages", (int) Math.ceil(DBManager.getInstance().count(specification)
                 / (double) Data.MAX_ENTITIES_PAGE));
 
         log.debug(LogMessage.CONTROLLER_FINISHED);

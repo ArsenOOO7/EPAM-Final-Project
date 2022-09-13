@@ -1,6 +1,6 @@
 package com.arsen.epam.internet.shop.repository.user;
 
-import com.arsen.epam.internet.shop.database.DBConnection;
+import com.arsen.epam.internet.shop.database.DBManager;
 import com.arsen.epam.internet.shop.database.Query;
 import com.arsen.epam.internet.shop.entity.user.User;
 import com.arsen.epam.internet.shop.repository.Specification;
@@ -22,7 +22,7 @@ public class UserRepository implements IUserRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.SAVE_USER, Statement.RETURN_GENERATED_KEYS);
@@ -47,10 +47,10 @@ public class UserRepository implements IUserRepository{
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -60,7 +60,7 @@ public class UserRepository implements IUserRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.UPDATE_USER);
@@ -80,10 +80,10 @@ public class UserRepository implements IUserRepository{
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
     }
@@ -93,7 +93,7 @@ public class UserRepository implements IUserRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(Query.DELETE_USER);
 
             connection.setAutoCommit(false);
@@ -107,10 +107,10 @@ public class UserRepository implements IUserRepository{
 
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -133,7 +133,7 @@ public class UserRepository implements IUserRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = specification.getStatement(connection);
 
             connection.setAutoCommit(false);
@@ -147,10 +147,10 @@ public class UserRepository implements IUserRepository{
             }
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
         return list;

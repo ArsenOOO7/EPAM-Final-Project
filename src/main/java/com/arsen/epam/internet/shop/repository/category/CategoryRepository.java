@@ -1,6 +1,6 @@
 package com.arsen.epam.internet.shop.repository.category;
 
-import com.arsen.epam.internet.shop.database.DBConnection;
+import com.arsen.epam.internet.shop.database.DBManager;
 import com.arsen.epam.internet.shop.database.Query;
 import com.arsen.epam.internet.shop.entity.Category;
 import com.arsen.epam.internet.shop.repository.Specification;
@@ -26,7 +26,7 @@ public class CategoryRepository implements ICategoryRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.SAVE_CATEGORY, Statement.RETURN_GENERATED_KEYS);
@@ -45,10 +45,10 @@ public class CategoryRepository implements ICategoryRepository{
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
         addCache(entity);
@@ -60,7 +60,7 @@ public class CategoryRepository implements ICategoryRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.UPDATE_CATEGORY);
@@ -74,10 +74,10 @@ public class CategoryRepository implements ICategoryRepository{
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
         updateCache(entity);
@@ -88,7 +88,7 @@ public class CategoryRepository implements ICategoryRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(Query.DELETE_CATEGORY);
 
             connection.setAutoCommit(false);
@@ -98,10 +98,10 @@ public class CategoryRepository implements ICategoryRepository{
 
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
         deleteCache(entity);
@@ -146,7 +146,7 @@ public class CategoryRepository implements ICategoryRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = specification.getStatement(connection);
 
             connection.setAutoCommit(false);
@@ -160,10 +160,10 @@ public class CategoryRepository implements ICategoryRepository{
             }
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
         cache.setAttribute("categories", list);

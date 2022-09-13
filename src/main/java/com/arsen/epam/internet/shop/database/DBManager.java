@@ -13,7 +13,7 @@ import java.sql.*;
  *
  * @author Arsen Sydoryk
  */
-public class DBConnection {
+public class DBManager {
 
     //InternetShop - the name of default data source
     public static final String DATA_SOURCE_DEFAULT = "jdbc/InternetShop";
@@ -32,7 +32,7 @@ public class DBConnection {
     /**
      * DBConnection instance
      */
-    private static DBConnection instance;
+    private static DBManager instance;
 
 
     /**
@@ -41,9 +41,9 @@ public class DBConnection {
      * @param connectionAddress connection address
      * @return DBConnection instance
      */
-    public synchronized static DBConnection getInstance(String driverName, String connectionAddress){
+    public synchronized static DBManager getInstance(String driverName, String connectionAddress){
         if(instance == null){
-            instance = new DBConnection(driverName, connectionAddress);
+            instance = new DBManager(driverName, connectionAddress);
         }
         return instance;
     }
@@ -52,9 +52,9 @@ public class DBConnection {
      *
      * @return DBConnection instance
      */
-    public synchronized static DBConnection getInstance(){
+    public synchronized static DBManager getInstance(){
         if(instance == null){
-            instance = new DBConnection();
+            instance = new DBManager();
         }
         return instance;
     }
@@ -63,7 +63,7 @@ public class DBConnection {
     /**
      * Default constructor
      */
-    private DBConnection(){
+    private DBManager(){
         getDataSource();
     }
 
@@ -72,7 +72,7 @@ public class DBConnection {
      * @param driverName driver name
      * @param connectionAddress data source name
      */
-    private DBConnection(String driverName, String connectionAddress){
+    private DBManager(String driverName, String connectionAddress){
         try {
             Class.forName(driverName);
         } catch (ClassNotFoundException e) {
@@ -161,7 +161,7 @@ public class DBConnection {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
             statement = specification.getStatement(connection);
             resultSet = statement.executeQuery();
@@ -172,9 +172,9 @@ public class DBConnection {
 
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
         }finally {
-            DBConnection.close(resultSet, statement, connection);
+            DBManager.close(resultSet, statement, connection);
         }
 
         return length;

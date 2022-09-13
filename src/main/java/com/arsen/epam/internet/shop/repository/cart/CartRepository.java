@@ -1,6 +1,6 @@
 package com.arsen.epam.internet.shop.repository.cart;
 
-import com.arsen.epam.internet.shop.database.DBConnection;
+import com.arsen.epam.internet.shop.database.DBManager;
 import com.arsen.epam.internet.shop.database.Query;
 import com.arsen.epam.internet.shop.entity.cart.Cart;
 import com.arsen.epam.internet.shop.entity.product.Product;
@@ -23,7 +23,7 @@ public class CartRepository implements ICartRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.SAVE_CART, Statement.RETURN_GENERATED_KEYS);
@@ -44,10 +44,10 @@ public class CartRepository implements ICartRepository{
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -56,7 +56,7 @@ public class CartRepository implements ICartRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.UPDATE_CART);
@@ -73,10 +73,10 @@ public class CartRepository implements ICartRepository{
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -85,7 +85,7 @@ public class CartRepository implements ICartRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(Query.DELETE_CART);
 
             connection.setAutoCommit(false);
@@ -95,10 +95,10 @@ public class CartRepository implements ICartRepository{
 
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -121,7 +121,7 @@ public class CartRepository implements ICartRepository{
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = specification.getStatement(connection);
 
             connection.setAutoCommit(false);
@@ -136,10 +136,10 @@ public class CartRepository implements ICartRepository{
             }
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
         return list;

@@ -1,6 +1,6 @@
 package com.arsen.epam.internet.shop.repository.ban;
 
-import com.arsen.epam.internet.shop.database.DBConnection;
+import com.arsen.epam.internet.shop.database.DBManager;
 import com.arsen.epam.internet.shop.database.Query;
 import com.arsen.epam.internet.shop.entity.user.ban.UserBan;
 import com.arsen.epam.internet.shop.repository.Specification;
@@ -21,7 +21,7 @@ public class BanRepository implements IBanRepository {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.SAVE_BAN, Statement.RETURN_GENERATED_KEYS);
@@ -40,10 +40,10 @@ public class BanRepository implements IBanRepository {
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -52,7 +52,7 @@ public class BanRepository implements IBanRepository {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             connection.setAutoCommit(false);
 
             preparedStatement = connection.prepareStatement(Query.UPDATE_BAN);
@@ -67,10 +67,10 @@ public class BanRepository implements IBanRepository {
             connection.commit();
 
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -79,7 +79,7 @@ public class BanRepository implements IBanRepository {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(Query.DELETE_BAN);
 
             connection.setAutoCommit(false);
@@ -89,10 +89,10 @@ public class BanRepository implements IBanRepository {
 
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
     }
 
@@ -115,7 +115,7 @@ public class BanRepository implements IBanRepository {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try{
-            connection = DBConnection.getInstance().getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = specification.getStatement(connection);
 
             connection.setAutoCommit(false);
@@ -129,10 +129,10 @@ public class BanRepository implements IBanRepository {
             }
             connection.commit();
         }catch (SQLException exception){
-            DBConnection.rollback(connection);
+            DBManager.rollback(connection);
             exception.printStackTrace();
         }finally {
-            DBConnection.close(preparedStatement, connection);
+            DBManager.close(preparedStatement, connection);
         }
 
         return list;

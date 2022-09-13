@@ -1,12 +1,11 @@
 package com.arsen.epam.internet.shop.db;
 
-import com.arsen.epam.internet.shop.database.DBConnection;
+import com.arsen.epam.internet.shop.database.DBManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
-import javax.naming.NamingException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,7 +29,7 @@ public class DBTest {
     @BeforeAll
     public static void setUpDB() throws IOException, SQLException {
 
-        connection = DBConnection.getInstance(DRIVER, DB_CONNECT).getConnection();
+        connection = DBManager.getInstance(DRIVER, DB_CONNECT).getConnection();
         readQueries();
 
     }
