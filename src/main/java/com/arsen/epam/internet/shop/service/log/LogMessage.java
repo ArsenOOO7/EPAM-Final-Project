@@ -2,7 +2,7 @@ package com.arsen.epam.internet.shop.service.log;
 
 
 /**
- * Class with ofter userd logger messages
+ * Class with ofter used logger messages
  *
  * @author Arsen Sydoryk
  */
