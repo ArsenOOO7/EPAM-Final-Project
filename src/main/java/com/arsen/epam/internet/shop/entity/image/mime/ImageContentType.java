@@ -13,8 +13,8 @@ public enum ImageContentType {
     MP4("mp4", "video/mp4"),
     UNDEFINED("", "");
 
-    private String extension;
-    private String contentType;
+    private final String extension;
+    private final String contentType;
 
     ImageContentType(String extension, String contentType){
         this.extension = extension;
