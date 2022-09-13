@@ -81,21 +81,16 @@ public class DBManager {
         this.connectionAddress = connectionAddress;
     }
 
-
-    private void getDataSource(){
-        getDataSource(DATA_SOURCE_DEFAULT);
-    }
-
     /**
      * This method reads context file and initializes dataSource
      */
-    private void getDataSource(String dataSrcName){
+    private void getDataSource(){
         try {
 
             Context initContext = new InitialContext();
             Context envContext = (Context)initContext.lookup("java:/comp/env");
 
-            dataSource = (DataSource)envContext.lookup(dataSrcName);
+            dataSource = (DataSource)envContext.lookup(DATA_SOURCE_DEFAULT);
 
         } catch (NamingException e) {
             e.printStackTrace();
