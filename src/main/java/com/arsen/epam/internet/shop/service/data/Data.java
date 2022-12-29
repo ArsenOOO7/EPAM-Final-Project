@@ -13,4 +13,10 @@ public class Data {
      */
     public final static int MAX_ENTITIES_PAGE = 3;
 
+
+    /**
+     * Constant for maximum connections (Connection pool)
+     */
+    public final static int MAX_POOLS_SIZE = 5;
+
 }
