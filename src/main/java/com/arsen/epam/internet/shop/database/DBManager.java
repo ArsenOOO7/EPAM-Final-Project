@@ -1,12 +1,24 @@
 package com.arsen.epam.internet.shop.database;
 
+import com.arsen.epam.internet.shop.database.proxy.ConnectionProxy;
 import com.arsen.epam.internet.shop.repository.Specification;
+import com.arsen.epam.internet.shop.service.data.Data;
+import com.mysql.cj.jdbc.MysqlDataSource;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
 import java.sql.*;
+import java.util.Properties;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * A class-connector to database.
@@ -18,11 +30,6 @@ public class DBManager {
     //InternetShop - the name of default data source
     public static final String DATA_SOURCE_DEFAULT = "jdbc/InternetShop";
 
-    /**
-     * DataSource, which contains database data from Context
-     */
-    private DataSource dataSource;
-
 
     /**
      * Connection address (for in-mem db)
@@ -33,6 +40,8 @@ public class DBManager {
      * DBConnection instance
      */
     private static DBManager instance;
+
+    private final Queue<Connection> connectionQueue = new ConcurrentLinkedQueue<>();
 
 
     /**
@@ -90,10 +99,17 @@ public class DBManager {
             Context initContext = new InitialContext();
             Context envContext = (Context)initContext.lookup("java:/comp/env");
 
-            dataSource = (DataSource)envContext.lookup(DATA_SOURCE_DEFAULT);
+            /**
+             * DataSource, which contains database data from Context
+             */
+            DataSource dataSource = (DataSource) envContext.lookup(DATA_SOURCE_DEFAULT);
 
-        } catch (NamingException e) {
-            e.printStackTrace();
+            for(int i = 0; i < Data.MAX_POOLS_SIZE; ++i){
+                connectionQueue.add(new ConnectionProxy(dataSource.getConnection(), connectionQueue));
+            }
+
+        } catch (SQLException | NamingException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -105,7 +121,7 @@ public class DBManager {
     public Connection getConnection() throws SQLException {
         return (connectionAddress != null)
                 ? DriverManager.getConnection(connectionAddress)
-                : dataSource.getConnection();
+                : connectionQueue.poll();
     }
 
     /**
@@ -175,5 +191,4 @@ public class DBManager {
         return length;
 
     }
-
 }
