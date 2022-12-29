@@ -20,27 +20,58 @@ import com.arsen.epam.internet.shop.repository.user.UserRepository;
  */
 public class HeadRepository {
 
-    public static IUserRepository getUserRepository(){
-        return new UserRepository();
+    private static IUserRepository userRepository;
+
+    private static IProductRepository productRepository;
+
+    private static IImageRepository imageRepository;
+
+    private static ICartRepository cartRepository;
+
+    private static IBanRepository banRepository;
+
+    private static ICategoryRepository categoryRepository;
+
+
+    public static synchronized IUserRepository getUserRepository(){
+        if(userRepository == null){
+            userRepository = new UserRepository();
+        }
+        return userRepository;
     }
 
-    public static IProductRepository getProductRepository(){
-        return new ProductRepository();
+    public static synchronized IProductRepository getProductRepository(){
+        if(productRepository == null){
+            productRepository = new ProductRepository();
+        }
+        return productRepository;
     }
 
-    public static IImageRepository getImageRepository(){
-        return new ImageRepository();
+    public static synchronized IImageRepository getImageRepository(){
+        if(imageRepository == null){
+            imageRepository = new ImageRepository();
+        }
+        return imageRepository;
     }
 
-    public static ICartRepository getCartRepository(){
-        return new CartRepository();
+    public static synchronized ICartRepository getCartRepository(){
+        if(cartRepository == null){
+            cartRepository = new CartRepository();
+        }
+        return cartRepository;
     }
 
-    public static IBanRepository getBanRepository(){
-        return new BanRepository();
+    public static synchronized IBanRepository getBanRepository(){
+        if(banRepository == null){
+            banRepository = new BanRepository();
+        }
+        return banRepository;
     }
 
-    public static ICategoryRepository getCategoryRepository(){
-        return new CategoryRepository();
+    public static synchronized ICategoryRepository getCategoryRepository(){
+        if(categoryRepository == null){
+            categoryRepository = new CategoryRepository();
+        }
+        return categoryRepository;
     }
 }
